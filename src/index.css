@@ -1,0 +1,28 @@
+.scroll-shadow-box {
+  position: relative;
+  --shadow-top-opacity: 0;
+  --shadow-bottom-opacity: 0;
+}
+
+.scroll-shadow-box:before,
+.scroll-shadow-box:after {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 10px;
+  z-index: 1;
+  left: 0;
+  transition: .3s;
+}
+
+.scroll-shadow-box:before {
+  opacity: var(--shadow-top-opacity);
+  background: linear-gradient(180deg, rgba(0, 0, 0, .15), transparent);
+  top: 0;
+}
+
+.scroll-shadow-box:after {
+  opacity: var(--shadow-bottom-opacity);
+  background: linear-gradient(0deg, rgba(0, 0, 0, .15), transparent);
+  bottom: 0;
+}

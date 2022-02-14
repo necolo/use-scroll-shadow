@@ -1,0 +1,38 @@
+{
+  "compilerOptions": {
+    "target": "esnext",
+    "module": "commonjs",
+    "jsx": "react-jsx",
+    "experimentalDecorators": true,
+    "isolatedModules": true,
+    "lib": ["dom", "es7", "webworker"],
+    "moduleResolution": "node",
+    "downlevelIteration": true,
+    "allowSyntheticDefaultImports" : true,
+    "allowJs": true,
+    "declaration": true,
+    "emitDecoratorMetadata": true,
+    "importHelpers": true,
+    "removeComments": false,
+    "sourceMap": true,
+    "noImplicitUseStrict": true,
+    "noImplicitReturns": true,
+    "noImplicitAny": false,
+    "noImplicitThis": true,
+    "strictBindCallApply": true,
+    "strictNullChecks": true,
+    "strictFunctionTypes": true,
+    "strictPropertyInitialization": true,
+    "resolveJsonModule": true,
+    "skipLibCheck": true,
+    "esModuleInterop": true,
+    "baseUrl": "./",
+    "plugins": [ ],
+    "outDir": "lib"
+  },
+  "include": ["src"],
+  "exclude": [
+    "build",
+    "node_modules",
+  ]
+}
