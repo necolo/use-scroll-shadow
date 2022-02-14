@@ -15,7 +15,7 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Necolo/react-state.git"
+    "url": "git+https://github.com/Necolo/use-scroll-shadow.git"
   },
   "keywords": [
     "react",
