@@ -1,6 +1,6 @@
 {
   "name": "use-scroll-shadow",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Add scroll shadow to scrollable content",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
