@@ -1,7 +1,7 @@
 # use-scroll-shadow
 A react hook for adding top and bottom shadow to scrollable content.  
 
-[Demo](https://necolo.github.io/use-scroll-shadow)
+[Demo](https://necolo.github.io/use-scroll-shadow/)
 
 ## why use-scroll-shadow
 You can use [PureCSS](https://css-scroll-shadows.vercel.app) for simple scrollable content.  
