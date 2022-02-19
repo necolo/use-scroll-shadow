@@ -30,7 +30,7 @@
     "plugins": [ ],
     "outDir": "lib"
   },
-  "include": ["src", "demo"],
+  "include": ["src"],
   "exclude": [
     "build",
     "node_modules",
