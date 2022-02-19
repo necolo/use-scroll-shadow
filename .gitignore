@@ -1,5 +1,7 @@
 .parcel-cache
 lib
+.DS_Store
+.yarn.lock
 
 # Logs
 logs
