@@ -11,6 +11,7 @@ Features
 - Add top shadow when content scrolled
 - Hide bottom shadow when content hit bottom
 - Observe scroll element height, if it's not scrollable, will hide shadows
+- Will not cause any side-effect
 
 ## Install
 
