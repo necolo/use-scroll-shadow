@@ -27,13 +27,11 @@ import 'use-scroll-shadow/lib/index.css'; // don't forget import css
 
 // example
 function App() {
-  const wrapperRef = useRef(null);
-  const scrollContentRef = useRef(null);
-  useScrollShadow(wrapperRef, scrollContentRef);
+  const { contentRef } = useScrollShadow();
 
   return (
-    <div ref={wrapperRef}>
-      <div ref={scrollContentRef} style={{ overflowY: 'auto', maxHeight: '100vh' }}>
+    <div>
+      <div ref={contentRef} style={{ overflowY: 'auto', maxHeight: '100vh' }}>
         {/* Put your content here */}
       </div>
     </div>
