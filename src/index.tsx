@@ -1,31 +1,50 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { debounce } from './debounce';
 
 /**
  * Add scroll shadow
- * @param wrapperRef the wrapper element ref
- * @param scrollContentRef the scrollable content ref
+ *
+ * @example
+ * const { contentRef } = useScrollShadow();
+ * <div>
+ *  <div ref={contentRef} style={{ overflow: 'auto', height: '100vh' }}>
+ *   ...
+ *  </div>
+ * </div>
+ *
+ * @return contentRef the scroll content element
+ * @return wrapperRef at most time you don't have to set the wrapper, it will find the content element's parent
  */
-export function useScrollShadow(
-  wrapperRef: React.RefObject<HTMLElement | null>,
-  scrollContentRef: React.RefObject<HTMLElement | null>,
-) {
-  const [onTop, setOnTop] = useState(true);
-  const [onBottom, setOnBottom] = useState(false);
+export function useScrollShadow() {
+  const wrapperRef = useRef<any>(null);
+  const contentRef = useRef<any>(null);
 
-  const handleScroll = (ev: Event) => {
+  const isOnTopRef = useRef(true);
+  const isOnBottomRef = useRef(false);
+
+  const onScroll = (ev: Event) => {
     const { scrollTop, scrollHeight, clientHeight } = ev.target as any;
     const buffer = 15;
     const hitTop = scrollTop < buffer;
     const hitBottom = (scrollTop > (scrollHeight - clientHeight) - buffer) || (scrollHeight === clientHeight);
-    setOnTop(hitTop);
-    setOnBottom(hitBottom);
+    if (hitTop !== isOnTopRef.current) {
+      isOnTopRef.current = hitTop;
+      getWrapperElement()?.style.setProperty('--shadow-top-opacity', hitTop ? '0' : '1');
+    }
+    if (hitBottom !== isOnBottomRef.current) {
+      isOnBottomRef.current = hitBottom;
+      getWrapperElement()?.style.setProperty('--shadow-bottom-opacity', hitBottom ? '0' : '1');
+    }
+  };
+
+  const getWrapperElement = () => {
+    return wrapperRef.current || contentRef.current?.parentElement;
   };
 
   useEffect(() => {
-    const wrapper = wrapperRef.current;
-    const content = scrollContentRef.current;
-    if (!wrapper || !content) {
+    const content = contentRef.current;
+    const wrapper = getWrapperElement();
+    if (!content || !wrapper) {
       return;
     }
     wrapper.className += ' scroll-shadow-box';
@@ -37,22 +56,14 @@ export function useScrollShadow(
       const { clientHeight } = entry.target;
       if (clientHeight !== height) {
         height = clientHeight;
-        handleScroll(entry);
+        onScroll(entry);
       }
     }, 300));
     resizeObserver.observe(content);
 
-    content.addEventListener('scroll', handleScroll);
-    return () => content.removeEventListener('scroll', handleScroll);
+    content.addEventListener('scroll', onScroll);
+    return () => content.removeEventListener('scroll', onScroll);
   }, []);
 
-  useEffect(() => {
-    const wrapper = wrapperRef.current;
-    const content = scrollContentRef.current;
-    if (!wrapper || !content) {
-      return;
-    }
-    wrapper.style.setProperty('--shadow-top-opacity', onTop ? '0' : '1');
-    wrapper.style.setProperty('--shadow-bottom-opacity', onBottom ? '0' : '1');
-  }, [onTop, onBottom]);
+  return { wrapperRef, contentRef };
 }
