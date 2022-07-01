@@ -39,3 +39,19 @@ function App() {
   );
 }
 ```
+
+## If you want to restyle the shadow
+Do this in your `.css` file:
+
+```css
+.scroll-shadow-box:before {
+  background: linear-gradient(
+    180deg,
+    rgba(0, 0, 0, 0.5),
+    transparent
+  ) !important;
+}
+.scroll-shadow-box:after {
+  background: linear-gradient(0deg, rgba(0, 0, 0, 0.5), transparent) !important;
+}
+```
