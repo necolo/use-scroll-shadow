@@ -15,7 +15,7 @@ import { debounce } from './debounce';
  * @return contentRef the scroll content element
  * @return wrapperRef at most time you don't have to set the wrapper, it will find the content element's parent
  */
-export function useScrollShadow() {
+export function useScrollShadow(deps: unknown[] = []) {
   const wrapperRef = useRef<any>(null);
   const contentRef = useRef<any>(null);
 
@@ -38,7 +38,8 @@ export function useScrollShadow() {
   };
 
   const getWrapperElement = () => {
-    return wrapperRef.current || contentRef.current?.parentElement;
+    wrapperRef.current ||= contentRef.current?.parentElement;
+    return wrapperRef.current;
   };
 
   useEffect(() => {
@@ -48,6 +49,12 @@ export function useScrollShadow() {
       return;
     }
     wrapper.className += ' scroll-shadow-box';
+
+    const hitBottom = content.scrollTop > (content.scrollHeight - content.clientHeight - scrollBuffer) ||
+    content.scrollHeight === content.clientHeight;
+
+    isOnBottomRef.current = hitBottom;
+    getWrapperElement()?.style.setProperty('--shadow-bottom-opacity', hitBottom ? '0' : '1');
 
     let height = content.clientHeight;
 
@@ -63,7 +70,7 @@ export function useScrollShadow() {
 
     content.addEventListener('scroll', onScroll);
     return () => content.removeEventListener('scroll', onScroll);
-  }, []);
+  }, deps);
 
   return { wrapperRef, contentRef };
 }
